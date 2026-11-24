@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart'; // ADD THIS
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -6,11 +7,16 @@ import 'login_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+ 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+ 
+  // ADD THIS BLOCK
+  if (FirebaseAuth.instance.currentUser == null) {
+    await FirebaseAuth.instance.signInAnonymously();
+  }
+ 
   runApp(const StudentApp());
 }
 
@@ -23,9 +29,7 @@ class StudentApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Student Application',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.indigo,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
       home: const LoginScreen(),

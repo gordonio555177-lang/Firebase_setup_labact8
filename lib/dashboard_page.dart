@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'student_crud_page.dart'; // Added import
+
 class DashboardPage extends StatelessWidget {
   final String username;
 
@@ -9,6 +11,7 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Dashboard')),
+      // Note: 'const' removed from ListView
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
@@ -28,6 +31,7 @@ class DashboardPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
+          // Note: 'const' removed from Card
           const Card(
             child: Column(
               children: [
@@ -52,6 +56,20 @@ class DashboardPage extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          
+          // --- NEW BUTTON ADDED HERE ---
+          const SizedBox(height: 20),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const StudentCrudPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.storage),
+            label: const Text('Manage Student Records'),
           ),
         ],
       ),
